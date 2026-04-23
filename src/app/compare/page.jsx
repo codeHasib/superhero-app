@@ -1,14 +1,7 @@
-"use client";
-
 import { signOut } from "better-auth/api";
 
 const ComparePage = () => {
-  return (
-    <div>
-      Compare
-      <button onClick={signOut}>out</button>
-    </div>
-  );
+  return <div>Compare</div>;
 };
 
 export default ComparePage;

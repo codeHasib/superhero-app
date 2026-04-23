@@ -1,9 +1,9 @@
 "use client";
 
-import { useSession } from "@/lib/auth-client";
+import { signOut, useSession } from "@/lib/auth-client";
 import Link from "next/link";
 import LoadingNav from "./LoadingNav";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Nav = () => {
   const { data, isPending } = useSession();
@@ -11,6 +11,13 @@ const Nav = () => {
   const user = data?.user;
 
   const pathName = usePathname();
+
+  const router = useRouter();
+
+  function getOut() {
+    router.push("/");
+    signOut();
+  }
 
   const loggedOutLinks = (
     <>
@@ -122,7 +129,49 @@ const Nav = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          {isPending ? (
+            <LoadingNav></LoadingNav>
+          ) : data ? (
+            <>
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="avatar avatar-placeholder"
+                >
+                  <div className="bg-neutral text-neutral-content w-8 rounded-full cursor-pointer">
+                    <span className="text-xs">
+                      {user.name[0].toUpperCase()}
+                    </span>
+                  </div>
+                </div>
+                <ul
+                  tabIndex="-1"
+                  className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+                >
+                  <li>
+                    <button
+                      onClick={() => getOut()}
+                      className="btn btn-error text-white font-extrabold"
+                    >
+                      Sign-Out
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </>
+          ) : (
+            <>
+              <Link href={"/auth/signin"}>
+                <button className="lg:inline-block md:inline-block hidden btn">
+                  Sign In
+                </button>
+              </Link>
+              <Link href={"/auth/signup"}>
+                <button className="btn">Get Started</button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

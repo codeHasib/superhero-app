@@ -2,6 +2,8 @@ import Nav from "@/components/Nav";
 import "./globals.css";
 
 import { JetBrains_Mono } from "next/font/google";
+import { DataProvider } from "@/context/dataContext";
+import { ToastContainer } from "react-toastify";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -19,8 +21,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`h-full antialiased`}>
       <body className={`${jetbrainsMono.variable}`}>
-        <Nav></Nav>
-        {children}
+        <DataProvider>
+          <Nav></Nav>
+          {children}
+        </DataProvider>
+        <ToastContainer></ToastContainer>
       </body>
     </html>
   );

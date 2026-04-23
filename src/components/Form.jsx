@@ -1,8 +1,12 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const Form = () => {
+  const router = useRouter();
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -12,6 +16,11 @@ const Form = () => {
       email: userData.email, // required
       password: userData.password,
     });
+    if (error) {
+      toast.error(error.message);
+    }
+    toast.success("Successfully registered");
+    window.location.href = "/dashboard";
   };
   return (
     <div>
