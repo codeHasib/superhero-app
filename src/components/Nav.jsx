@@ -1,13 +1,43 @@
+"use client";
+
+import { useSession } from "@/lib/auth-client";
 import Link from "next/link";
+import LoadingNav from "./LoadingNav";
+import { usePathname } from "next/navigation";
 
 const Nav = () => {
+  const { data, isPending } = useSession();
+
+  const user = data?.user;
+
+  const pathName = usePathname();
+
   const loggedOutLinks = (
     <>
       <li>
         {" "}
-        <Link href={"/Explore"}>Dashboard</Link>
-        <Link href={"/Top Heroes"}>Favorites</Link>
-        <Link href={"/About"}>Compare</Link>
+        <Link
+          className={pathName === "/explore" ? "underline" : ""}
+          href={"/explore"}
+        >
+          Explore
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={pathName === "/features" ? "underline" : ""}
+          href={"/features"}
+        >
+          Features
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={pathName === "/topheroes" ? "underline" : ""}
+          href={"/topheroes"}
+        >
+          Top Heroes
+        </Link>
       </li>
     </>
   );
@@ -15,9 +45,28 @@ const Nav = () => {
     <>
       <li>
         {" "}
-        <Link href={"/dashboard"}>Dashboard</Link>
-        <Link href={"/favorites"}>Favorites</Link>
-        <Link href={"/compare"}>Compare</Link>
+        <Link
+          className={pathName === "/dashboard" ? "underline" : ""}
+          href={"/dashboard"}
+        >
+          Dashboard
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={pathName === "/favorites" ? "underline" : ""}
+          href={"/favorites"}
+        >
+          Favorites
+        </Link>
+      </li>
+      <li>
+        <Link
+          className={pathName === "/compare" ? "underline" : ""}
+          href={"/compare"}
+        >
+          Compare
+        </Link>
       </li>
     </>
   );
@@ -48,48 +97,28 @@ const Nav = () => {
               tabIndex="-1"
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+              {isPending ? (
+                <LoadingNav></LoadingNav>
+              ) : data ? (
+                loggedLinks
+              ) : (
+                loggedOutLinks
+              )}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <Link href={"/"} className="btn btn-ghost text-xl">
+            HeroVault
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2 bg-base-100 w-40 z-1">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            {isPending ? (
+              <LoadingNav></LoadingNav>
+            ) : data ? (
+              loggedLinks
+            ) : (
+              loggedOutLinks
+            )}
           </ul>
         </div>
         <div className="navbar-end">
