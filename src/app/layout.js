@@ -1,3 +1,4 @@
+import Nav from "@/components/Nav";
 import "./globals.css";
 
 import { JetBrains_Mono } from "next/font/google";
@@ -17,7 +18,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`h-full antialiased`}>
-      <body className={`${jetbrainsMono.variable}`}>{children}</body>
+      <body className={`${jetbrainsMono.variable}`}>
+        <Nav></Nav>
+        {children}
+      </body>
     </html>
   );
 }
