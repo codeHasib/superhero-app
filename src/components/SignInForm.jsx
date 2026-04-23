@@ -7,17 +7,18 @@ import { toast } from "react-toastify";
 import icon from "../../public/heroVault.png";
 import Link from "next/link";
 
-const Form = () => {
+const SignInForm = () => {
   const router = useRouter();
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData.entries());
-    const { data, error } = await authClient.signUp.email({
-      name: userData.name, // required
+    const { data, error } = await authClient.signIn.email({
       email: userData.email, // required
       password: userData.password,
+      rememberMe: true,
+      callbackURL: "/dashboard",
     });
     if (error) {
       toast.error(error.message);
@@ -34,7 +35,7 @@ const Form = () => {
       >
         <div className="flex flex-col gap-3 items-center justify-center my-5">
           <h2 className="text-2xl text-center text-red-400 font-bold">
-            Welcome To Hero Vault
+            Welcome Back
           </h2>
           <Image
             className="rounded-full"
@@ -45,22 +46,10 @@ const Form = () => {
           ></Image>
           <div className="p-4 bg-black rounded-4xl">
             <p className="text-yellow-300 text-center">
-              Enroll yourself to the world of Super Heroes
+              Login to explore the world of Super Heroes
             </p>
           </div>
         </div>
-
-        <fieldset className="fieldset">
-          <label className="label text-white text-[16px]">Name</label>
-          <input
-            type="text"
-            name="name"
-            className="py-2 px-2 validator bg-black border-b-4 border-b-red-500"
-            placeholder="Name"
-            required
-          />
-          <p className="validator-hint hidden">Required</p>
-        </fieldset>
         <fieldset className="fieldset">
           <label className="label text-white text-[16px]">Email</label>
           <input
@@ -89,12 +78,12 @@ const Form = () => {
           className="btn bg-yellow-300 border-2 border-black border-b-6 border-b-black text-black mt-4"
           type="submit"
         >
-          ENLIST NOW
+          SIGN IN
         </button>
         <p className="text-yellow-400 text-center">
-          ALREADY ENLISTED?{" "}
-          <Link className="font-semibold text-red-400" href={"/auth/signin"}>
-            SIGN IN
+          NOT ENLISTED YET?{" "}
+          <Link className="font-semibold text-red-400" href={"/auth/signup"}>
+            SIGN UP
           </Link>
         </p>
       </form>
@@ -102,4 +91,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default SignInForm;

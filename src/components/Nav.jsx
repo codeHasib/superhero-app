@@ -14,9 +14,9 @@ const Nav = () => {
 
   const router = useRouter();
 
-  function getOut() {
+  async function getOut() {
+    await signOut();
     router.push("/");
-    signOut();
   }
 
   const loggedOutLinks = (
@@ -24,7 +24,11 @@ const Nav = () => {
       <li>
         {" "}
         <Link
-          className={pathName === "/explore" ? "underline" : ""}
+          className={
+            pathName === "/explore"
+              ? "underline text-yellow-300 uppercase font-extrabold"
+              : "uppercase font-extrabold"
+          }
           href={"/explore"}
         >
           Explore
@@ -32,7 +36,11 @@ const Nav = () => {
       </li>
       <li>
         <Link
-          className={pathName === "/features" ? "underline" : ""}
+          className={
+            pathName === "/features"
+              ? "underline text-yellow-300 uppercase font-extrabold"
+              : "uppercase font-extrabold"
+          }
           href={"/features"}
         >
           Features
@@ -40,7 +48,11 @@ const Nav = () => {
       </li>
       <li>
         <Link
-          className={pathName === "/topheroes" ? "underline" : ""}
+          className={
+            pathName === "/topheroes"
+              ? "underline text-yellow-300 uppercase font-extrabold"
+              : "uppercase font-extrabold"
+          }
           href={"/topheroes"}
         >
           Top Heroes
@@ -53,7 +65,11 @@ const Nav = () => {
       <li>
         {" "}
         <Link
-          className={pathName === "/dashboard" ? "underline" : ""}
+          className={
+            pathName === "/dashboard"
+              ? "underline text-yellow-300 uppercase font-extrabold"
+              : "uppercase font-extrabold"
+          }
           href={"/dashboard"}
         >
           Dashboard
@@ -61,7 +77,11 @@ const Nav = () => {
       </li>
       <li>
         <Link
-          className={pathName === "/favorites" ? "underline" : ""}
+          className={
+            pathName === "/favorites"
+              ? "underline text-yellow-300 uppercase font-extrabold"
+              : "uppercase font-extrabold"
+          }
           href={"/favorites"}
         >
           Favorites
@@ -69,7 +89,11 @@ const Nav = () => {
       </li>
       <li>
         <Link
-          className={pathName === "/compare" ? "underline" : ""}
+          className={
+            pathName === "/compare"
+              ? "underline text-yellow-300 uppercase font-extrabold"
+              : "uppercase font-extrabold"
+          }
           href={"/compare"}
         >
           Compare
@@ -80,10 +104,14 @@ const Nav = () => {
 
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-sm">
+      <div className="navbar bg-red-900 border-b-6 border-black text-white font-bold">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost text-yellow-300 lg:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -113,7 +141,10 @@ const Nav = () => {
               )}
             </ul>
           </div>
-          <Link href={"/"} className="btn btn-ghost text-xl">
+          <Link
+            href={"/"}
+            className="btn btn-ghost text-2xl font-extrabold text-yellow-400 text-shadow-2xs"
+          >
             HeroVault
           </Link>
         </div>
@@ -139,8 +170,8 @@ const Nav = () => {
                   role="button"
                   className="avatar avatar-placeholder"
                 >
-                  <div className="bg-neutral text-neutral-content w-8 rounded-full cursor-pointer">
-                    <span className="text-xs">
+                  <div className="text-red-700 font-extrabold w-10 rounded-full cursor-pointer bg-yellow-300">
+                    <span className="text-lg">
                       {user.name[0].toUpperCase()}
                     </span>
                   </div>
@@ -162,13 +193,19 @@ const Nav = () => {
             </>
           ) : (
             <>
-              <Link href={"/auth/signin"}>
-                <button className="lg:inline-block md:inline-block hidden btn">
+              <Link
+                className={pathName === "/auth/signin" ? "hidden" : ""}
+                href={"/auth/signin"}
+              >
+                <button className="lg:inline-block md:inline-block hidden btn mr-3 bg-yellow-400 text-red-600 font-bold">
                   Sign In
                 </button>
               </Link>
-              <Link href={"/auth/signup"}>
-                <button className="btn">Get Started</button>
+              <Link
+                className={pathName === "/auth/signup" ? "hidden" : ""}
+                href={"/auth/signup"}
+              >
+                <button className="btn btn-accent">Get Started</button>
               </Link>
             </>
           )}
