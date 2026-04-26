@@ -1,25 +1,39 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import icon from "../../public/heroVault.png";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import AuthLoading from "./AuthLoading";
 
 const SignInForm = () => {
   const router = useRouter();
+
+  const [isChecking, setIsChecking] = useState(false);
+
+  const { data } = useSession();
+
+  useEffect(() => {
+    if (data) {
+      return (window.location.href = "/dashboard");
+    }
+  }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData.entries());
+    setIsChecking(true);
     const { data, error } = await authClient.signIn.email({
       email: userData.email, // required
       password: userData.password,
       rememberMe: true,
       callbackURL: "/dashboard",
     });
+    setIsChecking(false);
     if (error) {
       toast.error(error.message);
       return;
@@ -27,6 +41,11 @@ const SignInForm = () => {
     toast.success("Successfully registered");
     window.location.href = "/dashboard";
   };
+
+  if (isChecking) {
+    return <AuthLoading></AuthLoading>;
+  }
+
   return (
     <div className="min-h-[80vh] flex justify-center items-center">
       <form

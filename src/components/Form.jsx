@@ -8,20 +8,28 @@ import icon from "../../public/heroVault.png";
 import Link from "next/link";
 import { FaGoogle } from "react-icons/fa6";
 import { motion } from "framer-motion"; // Added Motion
+import { useEffect, useState } from "react";
+import AuthLoading from "./AuthLoading";
 
 const Form = () => {
   const router = useRouter();
+  const [isChecking, setIsChecking] = useState(false);
 
-  const { data, isPending } = useSession();
+  const { data } = useSession();
 
-  if (data) {
-    return (window.location.href = "/dashboard");
-  }
+  useEffect(() => {
+    if (data) {
+      return (window.location.href = "/dashboard");
+    }
+  }, []);
 
   const handleGoogleSignIn = async () => {
+    setIsChecking(true);
     const data = await authClient.signIn.social({
       provider: "google",
     });
+    setIsChecking(false);
+    window.location.href = "/dashboard";
   };
 
   const onSubmit = async (e) => {
@@ -29,11 +37,14 @@ const Form = () => {
     const formData = new FormData(e.target);
     const userData = Object.fromEntries(formData.entries());
 
+    setIsChecking(true);
     const { data, error } = await authClient.signUp.email({
       name: userData.name,
       email: userData.email,
       password: userData.password,
     });
+
+    setIsChecking(false);
 
     if (error) {
       toast.error(error.message);
@@ -43,6 +54,10 @@ const Form = () => {
     toast.success("Successfully registered");
     window.location.href = "/dashboard";
   };
+
+  if (isChecking) {
+    return <AuthLoading></AuthLoading>;
+  }
 
   return (
     <div className="min-h-[80vh] flex justify-center items-center p-4">
