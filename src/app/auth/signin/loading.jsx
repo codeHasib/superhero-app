@@ -55,14 +55,14 @@ export default function AuthLoading() {
             transition={{ duration: 2, repeat: Infinity, times: [0, 0.2, 1] }}
             className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]"
           >
-            > Verifying Biometrics...
+             Verifying Biometrics...
           </motion.p>
           <motion.p
             animate={{ opacity: [0, 1, 0] }}
             transition={{ duration: 2, repeat: Infinity, delay: 0.5, times: [0, 0.2, 1] }}
             className="text-[10px] font-mono text-zinc-500 uppercase tracking-[0.3em]"
           >
-            > Connecting to Stark-Net...
+             Connecting to Stark-Net...
           </motion.p>
         </div>
       </div>
