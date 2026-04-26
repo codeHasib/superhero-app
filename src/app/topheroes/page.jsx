@@ -1,5 +1,16 @@
+"use client";
+
+import TopHeroes from "@/components/TopHeroesCompo";
+import { useHeroesData } from "@/context/dataContext";
+
 const TopHeroesPage = () => {
-  return <div>Heroes</div>;
+  const { heroes } = useHeroesData();
+
+  return (
+    <div>
+      <TopHeroes heroes={heroes}></TopHeroes>
+    </div>
+  );
 };
 
 export default TopHeroesPage;

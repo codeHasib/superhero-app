@@ -23,7 +23,7 @@ const features = [
     title: "The Vault",
     desc: "A secured private database to store your 'High-Value' targets and favorite multiverse variants.",
     icon: <Database className="w-12 h-12" />,
-    color: "bg-black",
+    color: "bg-blue-400",
     textColor: "text-white",
     tag: "SECURE",
   },
