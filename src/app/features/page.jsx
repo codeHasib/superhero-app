@@ -1,5 +1,11 @@
+import FeaturesComponent from "@/components/FeaturedComponent";
+
 const FeaturesPage = () => {
-  return <div>Features</div>;
+  return (
+    <div>
+      <FeaturesComponent></FeaturesComponent>
+    </div>
+  );
 };
 
 export default FeaturesPage;
