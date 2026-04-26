@@ -15,7 +15,7 @@ const Form = () => {
   const { data, isPending } = useSession();
 
   if (data) {
-    window.location.href = "/dashboard";
+    return (window.location.href = "/dashboard");
   }
 
   const handleGoogleSignIn = async () => {
