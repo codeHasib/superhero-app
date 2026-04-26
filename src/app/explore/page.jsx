@@ -1,7 +1,7 @@
 const ExplorePage = () => {
   return (
     <div>
-        Explore
+      Explore
     </div>
   );
 };
