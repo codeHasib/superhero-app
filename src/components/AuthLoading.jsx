@@ -5,7 +5,7 @@ import { Cpu, ShieldAlert } from "lucide-react";
 
 export default function AuthLoading() {
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center bg-black text-white p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-4">
       
       {/* 1. CENTRAL ANIMATED CORE */}
       <div className="relative flex items-center justify-center mb-12">
