@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
@@ -12,11 +12,16 @@ import { motion } from "framer-motion"; // Added Motion
 const Form = () => {
   const router = useRouter();
 
+  const { data, isPending } = useSession();
+
+  if (data) {
+    window.location.href = "/dashboard";
+  }
+
   const handleGoogleSignIn = async () => {
     const data = await authClient.signIn.social({
       provider: "google",
     });
-    console.log(data);
   };
 
   const onSubmit = async (e) => {
