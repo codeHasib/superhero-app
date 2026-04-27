@@ -2,7 +2,7 @@
 
 import { authClient, useSession } from "@/lib/auth-client";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import icon from "../../public/heroVault.png";
 import Link from "next/link";
@@ -15,10 +15,12 @@ const Form = () => {
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(false);
 
-  const { data } = useSession();
+  const { data, isPending } = useSession();
 
   useEffect(() => {
-    if (data) {
+    if (isPending) {
+      return <AuthLoading></AuthLoading>;
+    } else if (data) {
       return (window.location.href = "/dashboard");
     }
   }, []);
@@ -29,7 +31,7 @@ const Form = () => {
       provider: "google",
     });
     setIsChecking(false);
-    window.location.href = "/dashboard";
+    redirect("/dashboard");
   };
 
   const onSubmit = async (e) => {
