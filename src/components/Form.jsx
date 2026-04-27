@@ -29,6 +29,7 @@ const Form = () => {
     setIsChecking(true);
     const data = await authClient.signIn.social({
       provider: "google",
+      callbackURL: "/dashboard",
     });
     setIsChecking(false);
   };
