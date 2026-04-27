@@ -31,7 +31,6 @@ const Form = () => {
       provider: "google",
     });
     setIsChecking(false);
-    redirect("/dashboard");
   };
 
   const onSubmit = async (e) => {
